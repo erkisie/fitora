@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FITORA V6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><span>F</span><strong>FITORA</strong></div>
+    <button class="profile-card" id="profileBtn">
+      <span class="avatar" id="avatar">FY</span>
+      <span><strong id="profileName">Profil oluştur</strong><small>Profili değiştir</small></span>
+      <b>⌄</b>
+    </button>
+
+    <nav>
+      <button class="nav active" data-page="dashboard">⌂ Dashboard</button>
+      <button class="nav" data-page="nutrition">◉ Beslenme</button>
+      <button class="nav" data-page="foods">⌕ Besin Kataloğu</button>
+      <button class="nav" data-page="recipes">▦ Tarifler</button>
+      <button class="nav" data-page="workout">◆ Antrenman</button>
+      <button class="nav" data-page="records">★ Rekorlar & Sayaç</button>
+      <button class="nav" data-page="wellness">✦ Günlük Takip</button>
+      <button class="nav" data-page="progress">↗ İlerleme</button>
+      <button class="nav" data-page="settings">⚙ Profil & Hedefler</button>
+    </nav>
+
+    <div class="streak-box">
+      <small>AKTİF SERİ</small>
+      <strong id="streakText">🔥 0 gün</strong>
+      <div><span id="sideBar"></span></div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <div>
+        <p class="eyebrow" id="dateLabel"></p>
+        <h1 id="hello">FITORA’ya hoş geldin.</h1>
+        <p class="muted">Vücudunu, rutinini ve gelişimini tek panelden yönet.</p>
+      </div>
+      <div class="date-actions">
+        <button class="ghost" id="prevDate">‹</button>
+        <input type="date" id="activeDate">
+        <button class="ghost" id="nextDate">›</button>
+        <button class="ghost theme-toggle" id="themeToggle" title="Tema değiştir">☾</button>
+        <button class="primary" id="quickAddMeal">+ Öğün</button>
+      </div>
+    </header>
+
+    <section class="page active" id="dashboardPage">
+      <div class="hero-grid">
+        <article class="hero-card">
+          <div>
+            <p class="eyebrow">GÜNLÜK SKOR</p>
+            <h2 id="dailyScore">%0</h2>
+            <p class="muted">Beslenme, su, uyku, adım ve antrenman hedeflerinin birleşik skoru.</p>
+          </div>
+          <div class="score-ring" id="scoreRing"><span id="scoreInside">%0</span></div>
+        </article>
+        <article class="insight-card">
+          <p class="eyebrow">BUGÜNÜN ÖZETİ</p>
+          <h3 id="insightTitle">Henüz veri yok</h3>
+          <p id="insightText" class="muted">İlk kaydını ekleyerek kişisel özetini oluştur.</p>
+          <button class="text-btn" data-page-link="wellness">Günlük takibe git →</button>
+        </article>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric"><span class="bubble purple">P</span><p>Protein</p><h3><b id="proteinNow">0</b> / <span id="proteinGoal">0</span> g</h3><div class="track"><span id="proteinBar"></span></div><small id="proteinRemain"></small></article>
+        <article class="metric"><span class="bubble cyan">K</span><p>Karbonhidrat</p><h3><b id="carbNow">0</b> / <span id="carbGoal">0</span> g</h3><div class="track"><span id="carbBar"></span></div><small id="carbRemain"></small></article>
+        <article class="metric"><span class="bubble orange">Y</span><p>Yağ</p><h3><b id="fatNow">0</b> / <span id="fatGoal">0</span> g</h3><div class="track"><span id="fatBar"></span></div><small id="fatRemain"></small></article>
+        <article class="metric"><span class="bubble pink">C</span><p>Kalori</p><h3><b id="calNow">0</b> / <span id="calGoal">0</span></h3><div class="track"><span id="calBar"></span></div><small id="calRemain"></small></article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">ÖĞÜNLER</p><h2>Günlük beslenme</h2></div><button class="text-btn" id="addMealInline">Yeni ekle</button></div>
+          <div id="mealList" class="list"></div>
+        </article>
+
+        <div class="right-stack">
+          <article class="panel">
+            <div class="panel-head"><div><p class="eyebrow">WELLNESS</p><h2>Günlük durum</h2></div><span class="tag" id="wellnessTag">Eksik</span></div>
+            <div class="wellness-mini">
+              <div><span>💧</span><strong id="waterMini">0 / 0 L</strong></div>
+              <div><span>😴</span><strong id="sleepMini">0 saat</strong></div>
+              <div><span>👟</span><strong id="stepsMini">0 adım</strong></div>
+              <div><span>🙂</span><strong id="moodMini">—</strong></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head"><div><p class="eyebrow">ANTRENMAN</p><h2 id="workoutTitle">Dinlenme günü</h2></div><span class="tag" id="workoutDay">Plan</span></div>
+            <div id="miniWorkout" class="list compact"></div>
+          </article>
+        </div>
+      </div>
+
+      <article class="panel weekly-panel">
+        <div class="panel-head"><div><p class="eyebrow">SON 7 GÜN</p><h2>Haftalık performans</h2></div><strong id="weeklyAverage">%0 ortalama</strong></div>
+        <div id="weekBars" class="week-bars"></div>
+      </article>
+    </section>
+
+    <section class="page" id="nutritionPage">
+      <div class="section-head"><div><p class="eyebrow">BESLENME</p><h2>Öğün kayıtları</h2></div><button class="primary" id="addMealNutrition">+ Öğün Ekle</button></div>
+      <article class="panel"><div id="nutritionList" class="list"></div></article>
+    </section>
+
+    <section class="page" id="workoutPage">
+      <div class="section-head"><div><p class="eyebrow">ANTRENMAN</p><h2>Haftalık program</h2></div><button class="primary" id="addExerciseBtn">+ Hareket Ekle</button></div>
+      <div id="weeklyWorkout" class="week-grid"></div>
+    </section>
+
+    <section class="page" id="wellnessPage">
+      <div class="section-head"><div><p class="eyebrow">GÜNLÜK TAKİP</p><h2>Rutin ve iyi oluş</h2></div></div>
+      <form class="panel wellness-form" id="wellnessForm">
+        <label>Su tüketimi (L)<input type="number" id="waterInput" min="0" max="10" step=".25"></label>
+        <label>Uyku süresi (saat)<input type="number" id="sleepInput" min="0" max="24" step=".25"></label>
+        <label>Adım sayısı<input type="number" id="stepsInput" min="0" max="100000"></label>
+        <label>Ruh hâli
+          <select id="moodInput">
+            <option value="">Seçiniz</option>
+            <option value="Harika">😄 Harika</option>
+            <option value="İyi">🙂 İyi</option>
+            <option value="Normal">😐 Normal</option>
+            <option value="Yorgun">😴 Yorgun</option>
+            <option value="Kötü">😞 Kötü</option>
+          </select>
+        </label>
+        <label class="wide">Günlük not<textarea id="noteInput" rows="5" placeholder="Bugün nasıl geçti?"></textarea></label>
+        <button class="primary wide" type="submit">Günlük kaydı kaydet</button>
+      </form>
+    </section>
+
+    <section class="page" id="progressPage">
+      <div class="section-head"><div><p class="eyebrow">İLERLEME</p><h2>Vücut ölçümleri</h2></div><button class="primary" id="addMeasurementBtn">+ Ölçüm Ekle</button></div>
+      <div class="progress-grid">
+        <article class="panel"><h3>Son ölçüm</h3><div id="latestMeasurement" class="measurement-grid"></div></article>
+        <article class="panel"><h3>Değişim özeti</h3><div id="changeSummary" class="change-summary"></div></article>
+      </div>
+      <article class="panel"><h3>Ölçüm geçmişi</h3><div id="measurementHistory" class="history"></div></article>
+    </section>
+
+
+    <section class="page" id="foodsPage">
+      <div class="section-head">
+        <div><p class="eyebrow">GERÇEK BESİN ARAMA</p><h2>İnternetten ortalama besin değerini bul</h2></div>
+      </div>
+
+      <article class="panel online-search-panel">
+        <div>
+          <h3>USDA FoodData Central</h3>
+          <p class="muted">“Yoğurt”, “tavuk” veya “yulaf” yaz. FITORA internetteki sonuçları 100 gram için kalori ve makrolarla getirsin.</p>
+        </div>
+        <form id="onlineFoodSearchForm" class="online-search-form">
+          <input id="onlineFoodQuery" placeholder="Örn. yoğurt" minlength="2" required>
+          <button class="primary" type="submit">İnternette Ara</button>
+        </form>
+        <div class="api-status" id="apiStatus">Backend bağlantısı kontrol ediliyor…</div>
+      </article>
+
+      <div id="onlineFoodResults" class="catalog-grid online-results"></div>
+
+      <div class="local-catalog-title">
+        <div><p class="eyebrow">YEREL KATALOG</p><h2>Hazır besinler</h2></div>
+        <input class="search-input" id="foodSearch" placeholder="Yerel katalogda ara">
+      </div>
+      <div class="category-pills" id="foodCategories"></div>
+      <div id="foodCatalog" class="catalog-grid"></div>
+    </section>
+
+    <section class="page" id="recipesPage">
+      <div class="section-head">
+        <div><p class="eyebrow">FİTORA TARİFLERİ</p><h2>Pratik ve yüksek proteinli tarifler</h2></div>
+      </div>
+      <div id="recipeGrid" class="recipe-grid"></div>
+    </section>
+
+    <section class="page" id="recordsPage">
+      <div class="section-head">
+        <div><p class="eyebrow">PERFORMANS</p><h2>Kişisel rekorlar ve dinlenme sayacı</h2></div>
+      </div>
+      <div class="records-grid">
+        <article class="panel timer-panel">
+          <p class="eyebrow">SET ARASI DİNLENME</p>
+          <div class="timer-display" id="timerDisplay">01:30</div>
+          <div class="timer-presets">
+            <button data-timer-seconds="60">60 sn</button>
+            <button data-timer-seconds="90">90 sn</button>
+            <button data-timer-seconds="120">120 sn</button>
+          </div>
+          <div class="timer-actions">
+            <button class="primary" id="timerStart">Başlat</button>
+            <button class="ghost wide-ghost" id="timerPause">Duraklat</button>
+            <button class="danger" id="timerReset">Sıfırla</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <p class="eyebrow">YENİ REKOR</p>
+          <form class="record-form" id="recordForm">
+            <label>Hareket<input id="recordExercise" required placeholder="Örn. Hip Thrust"></label>
+            <div class="two">
+              <label>Ağırlık (kg)<input id="recordWeight" type="number" min="0" step=".5" required></label>
+              <label>Tekrar<input id="recordReps" type="number" min="1" required></label>
+            </div>
+            <button class="primary" type="submit">Rekoru kaydet</button>
+          </form>
+        </article>
+      </div>
+      <article class="panel record-history-panel">
+        <div class="panel-head"><div><p class="eyebrow">PR GEÇMİŞİ</p><h2>Kişisel rekorlar</h2></div></div>
+        <div id="recordList" class="record-list"></div>
+      </article>
+    </section>
+
+    <section class="page" id="settingsPage">
+      <div class="section-head"><div><p class="eyebrow">KİŞİSELLEŞTİRME</p><h2>Profil ve hedefler</h2></div></div>
+      <form class="panel settings-grid" id="profileForm">
+        <label>Ad<input id="setName" required></label>
+        <label>Yaş<input id="setAge" type="number" min="16" max="100" required></label>
+        <label>Cinsiyet<select id="setSex"><option value="female">Kadın</option><option value="male">Erkek</option></select></label>
+        <label>Boy (cm)<input id="setHeight" type="number" min="120" max="230" required></label>
+        <label>Kilo (kg)<input id="setWeight" type="number" min="35" max="300" step=".1" required></label>
+        <label>Aktivite<select id="setActivity"><option value="1.2">Hareketsiz</option><option value="1.375">Hafif aktif</option><option value="1.55">Orta aktif</option><option value="1.725">Çok aktif</option></select></label>
+        <label>Hedef<select id="setGoal"><option value="lose">Yağ kaybı</option><option value="maintain">Kiloyu koruma</option><option value="gain">Kas/kilo kazanımı</option></select></label>
+        <label>Protein katsayısı<input id="setProteinFactor" type="number" min=".8" max="2.4" step=".1"></label>
+        <label>Su hedefi (L)<input id="setWaterGoal" type="number" min="1" max="6" step=".1"></label>
+        <label>Adım hedefi<input id="setStepGoal" type="number" min="1000" max="50000" step="500"></label>
+        <label>Uyku hedefi (saat)<input id="setSleepGoal" type="number" min="4" max="12" step=".25"></label>
+        <label class="wide">Spor günleri<div class="day-checks" id="dayChecks"></div></label>
+        <div class="calc-box wide" id="calcPreview"></div>
+        <div class="wide action-row"><button class="primary" type="submit">Kaydet</button><button class="danger" type="button" id="deleteProfile">Profili sil</button></div>
+      </form>
+    </section>
+  </main>
+</div>
+
+<div class="modal-wrap" id="mealModal"><form class="modal" id="mealForm"><div class="modal-head"><h2>Öğün Ekle</h2><button type="button" data-close>×</button></div><label>Öğün adı<input id="mealName" required></label><div class="two"><label>Tür<select id="mealType"><option>Kahvaltı</option><option>Öğle Yemeği</option><option>Akşam Yemeği</option><option>Ara Öğün</option></select></label><label>Kalori<input id="mealCalories" type="number" min="0" required></label></div><div class="three"><label>Protein<input id="mealProtein" type="number" min="0" required></label><label>Karbonhidrat<input id="mealCarb" type="number" min="0" required></label><label>Yağ<input id="mealFat" type="number" min="0" required></label></div><button class="primary" type="submit">Kaydet</button></form></div>
+
+<div class="modal-wrap" id="exerciseModal"><form class="modal" id="exerciseForm"><div class="modal-head"><h2>Hareket Ekle</h2><button type="button" data-close>×</button></div><div class="two"><label>Gün<select id="exerciseDay"></select></label><label>Hareket<input id="exerciseName" required></label></div><div class="three"><label>Set<input id="exerciseSets" type="number" value="3" min="1"></label><label>Tekrar<input id="exerciseReps" type="number" value="12" min="1"></label><label>Ağırlık<input id="exerciseWeight" type="number" value="0" min="0" step=".5"></label></div><button class="primary" type="submit">Programa ekle</button></form></div>
+
+<div class="modal-wrap" id="measurementModal"><form class="modal" id="measurementForm"><div class="modal-head"><h2>Vücut Ölçümü</h2><button type="button" data-close>×</button></div><div class="three"><label>Kilo (kg)<input id="mWeight" type="number" step=".1" required></label><label>Bel (cm)<input id="mWaist" type="number" step=".1"></label><label>Kalça (cm)<input id="mHip" type="number" step=".1"></label><label>Göğüs (cm)<input id="mChest" type="number" step=".1"></label><label>Kol (cm)<input id="mArm" type="number" step=".1"></label><label>Bacak (cm)<input id="mLeg" type="number" step=".1"></label></div><button class="primary" type="submit">Kaydet</button></form></div>
+
+<div class="modal-wrap" id="profileModal"><div class="modal"><div class="modal-head"><h2>Profil Seç</h2><button type="button" data-close>×</button></div><div id="profileList" class="profile-list"></div><button class="primary" id="newProfileBtn">+ Yeni profil oluştur</button></div></div>
+
+
+<div class="modal-wrap" id="quantityModal">
+  <form class="modal small-modal" id="quantityForm">
+    <div class="modal-head">
+      <div><p class="eyebrow">MİKTAR HESAPLAMA</p><h2 id="quantityFoodName">Besin Ekle</h2></div>
+      <button type="button" data-close>×</button>
+    </div>
+
+    <div class="quantity-info">
+      <span id="quantityBaseText">Temel porsiyon</span>
+      <strong id="quantityBaseCalories">0 kcal</strong>
+    </div>
+
+    <label>
+      Miktar
+      <div class="quantity-input-row">
+        <input id="quantityAmount" type="number" min="0.1" step="0.1" required>
+        <select id="quantityUnit"></select>
+      </div>
+    </label>
+
+    <label>
+      Öğün türü
+      <select id="quantityMealType">
+        <option>Kahvaltı</option>
+        <option>Öğle Yemeği</option>
+        <option>Akşam Yemeği</option>
+        <option>Ara Öğün</option>
+      </select>
+    </label>
+
+    <div class="quantity-preview">
+      <div><small>Kalori</small><strong id="previewCalories">0 kcal</strong></div>
+      <div><small>Protein</small><strong id="previewProtein">0 g</strong></div>
+      <div><small>Karbonhidrat</small><strong id="previewCarbs">0 g</strong></div>
+      <div><small>Yağ</small><strong id="previewFat">0 g</strong></div>
+    </div>
+
+    <button class="primary" type="submit">Hesapla ve öğüne ekle</button>
+  </form>
+</div>
+
+
+<div class="modal-wrap" id="onlineQuantityModal">
+  <form class="modal small-modal" id="onlineQuantityForm">
+    <div class="modal-head">
+      <div><p class="eyebrow">USDA BESİNİ</p><h2 id="onlineFoodName">Besin Ekle</h2></div>
+      <button type="button" data-close>×</button>
+    </div>
+
+    <p class="muted" id="onlineFoodSource">100 g için ortalama değerler</p>
+
+    <label>Miktar (g)<input id="onlineFoodAmount" type="number" min="1" step="1" value="100" required></label>
+
+    <label>Öğün türü
+      <select id="onlineMealType">
+        <option>Kahvaltı</option>
+        <option>Öğle Yemeği</option>
+        <option>Akşam Yemeği</option>
+        <option>Ara Öğün</option>
+      </select>
+    </label>
+
+    <div class="quantity-preview">
+      <div><small>Kalori</small><strong id="onlinePreviewCalories">0 kcal</strong></div>
+      <div><small>Protein</small><strong id="onlinePreviewProtein">0 g</strong></div>
+      <div><small>Karbonhidrat</small><strong id="onlinePreviewCarbs">0 g</strong></div>
+      <div><small>Yağ</small><strong id="onlinePreviewFat">0 g</strong></div>
+    </div>
+
+    <button class="primary" type="submit">Hesapla ve öğüne ekle</button>
+  </form>
+</div>
+
+<script src="./app.js?v=6"></script>
+</body>
+</html>
