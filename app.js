@@ -260,7 +260,7 @@ $("quantityForm")?.addEventListener("submit",e=>{
 
 
 /* ================= FITORA V6 USDA SEARCH ================= */
-const FITORA_API_URL="http://127.0.0.1:8000";
+const FITORA_API_URL = "https://fitora-0p45.onrender.com";
 let selectedOnlineFood=null;
 
 async function checkBackend(){
